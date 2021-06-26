@@ -1,0 +1,47 @@
+{
+  "name": "ustandard",
+  "description": "JavaScript Standard Style (as a single μ bundle)",
+  "version": "0.0.0",
+  "author": "Bret Comnes <bcomnes@gmail.com> (https://bret.io)",
+  "bugs": {
+    "url": "https://github.com/bcomnes/ustandard/issues"
+  },
+  "bin": {
+    "standard": "./bin/standard/index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vercel/ncc": "^0.28.6",
+    "auto-changelog": "^2.2.0",
+    "gh-release": "^6.0.0",
+    "npm-run-all2": "^5.0.0",
+    "standard": "16.0.2"
+  },
+  "homepage": "https://github.com/bcomnes/ustandard",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bcomnes/ustandard.git"
+  },
+  "scripts": {
+    "prepublishOnly": "git push --follow-tags && gh-release -y",
+    "prepare": "run-s build",
+    "clean": "rimraf bin && mkdirp bin",
+    "build": "run-s clean build:*",
+    "build:ncc": "ncc build node_modules/standard/bin/cmd.js -o bin/standard",
+    "test": "run-s test:*",
+    "test:standard": "./bin/standard/index.js",
+    "version": "auto-changelog -p --template keepachangelog auto-changelog --breaking-pattern 'BREAKING CHANGE:' && git add CHANGELOG.md"
+  },
+  "standard": {
+    "ignore": [
+      "bin"
+    ]
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/bcomnes"
+  }
+}
